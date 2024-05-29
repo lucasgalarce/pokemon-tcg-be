@@ -11,6 +11,7 @@ import {
 import { PokemonCard } from '../entity/pokemonCard.entity';
 import { IdParams } from '../../../utils/dtos/Commons.dto';
 import {
+  BattleDto,
   PokemonCardDto,
   PokemonCardPaginationDto,
   UpdatePokemonCardDto,
@@ -66,5 +67,10 @@ export class PokemonCardController {
     @CurrentUser() user: User,
   ) {
     await this.pokemonCardService().update(params.id, entity, user.id);
+  }
+
+  @Post('battle')
+  async battle(@Body() battleDto: BattleDto): Promise<string> {
+    return this.pokemonCardService().battle(battleDto);
   }
 }

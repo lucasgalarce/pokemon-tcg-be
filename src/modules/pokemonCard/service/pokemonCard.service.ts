@@ -10,7 +10,12 @@ import { PokemonCardError } from '../enum/pokemon-card-error.enum';
 import { UtilsService } from '../../../utils/services/utils.service';
 import { PokemonCard } from '../entity/pokemonCard.entity';
 import { PokemonCardRepository } from '../repository/pokemonCard.repository';
-import { PokemonCardDto, PokemonCardQueryDto, UpdatePokemonCardDto } from '../dtos/pokemonCard.dto';
+import {
+  BattleDto,
+  PokemonCardDto,
+  PokemonCardQueryDto,
+  UpdatePokemonCardDto,
+} from '../dtos/pokemonCard.dto';
 import { UserService } from '../../user/service/user.service';
 import { User } from 'src/modules/user/entity/user.entity';
 import { QueryFailedError } from 'typeorm';
@@ -70,5 +75,26 @@ export class PokemonCardService extends UtilsService<PokemonCard> {
 
   async findWithFiltersAndPagination(payload: PokemonCardQueryDto) {
     return this.getRepository().findPokemonCardsByFiltersPaginated(payload);
+  }
+
+  async battle(battleDto: BattleDto): Promise<string> {
+    const attacker = await this.findOneByFilter({
+      where: [{ id: battleDto.attackerId }],
+    });
+    const defender = await this.findOneByFilter({
+      where: [{ id: battleDto.defenderId }],
+    });
+
+    if (!attacker || !defender) {
+      throw new NotFoundException('One of the Pokemon cards not found');
+    }
+
+    const damageMultiplier = defender.weakness === attacker.type ? 2 : 1;
+
+    if (attacker.hp * damageMultiplier > defender.hp) {
+      return `${attacker.name} wins the battle`;
+    } else {
+      return `${defender.name} wins the battle`;
+    }
   }
 }

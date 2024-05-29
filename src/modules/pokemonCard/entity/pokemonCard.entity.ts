@@ -35,19 +35,34 @@ export class PokemonCard extends EntityBase {
   originalAttackDmg: number;
 
   @ApiProperty({ description: 'type', enum: PokemonType })
+  @Column({ type: 'enum', enum: PokemonType, nullable: false })
   @IsNotEmpty()
   @IsEnum(PokemonType)
   type: PokemonType;
 
   @ApiProperty({ description: 'expansion', enum: PokemonExpansion })
+  @Column({ type: 'enum', enum: PokemonExpansion, nullable: false })
   @IsNotEmpty()
   @IsEnum(PokemonExpansion)
   expansion: PokemonExpansion;
 
   @ApiProperty({ description: 'rarity', enum: PokemonRarity })
+  @Column({ type: 'enum', enum: PokemonRarity, nullable: false })
   @IsNotEmpty()
   @IsEnum(PokemonRarity)
   rarity: PokemonRarity;
+
+  @ApiProperty({ description: 'weakness', enum: PokemonType })
+  @Column({ type: 'enum', enum: PokemonType, nullable: false })
+  @IsNotEmpty()
+  @IsEnum(PokemonType)
+  weakness: PokemonType;
+
+  @ApiProperty({ description: 'resistance', enum: PokemonType })
+  @Column({ type: 'enum', enum: PokemonType, nullable: true })
+  @IsNotEmpty()
+  @IsEnum(PokemonType)
+  resistance?: PokemonType;
 
   @ManyToOne(() => User, (user: User) => user.pokemonCards)
   user: User;

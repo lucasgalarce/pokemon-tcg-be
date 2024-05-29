@@ -1,5 +1,5 @@
 import { ApiProperty, OmitType, PartialType } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 import { PaginationDto, RequestPaginationDto } from '../../../utils/dtos/Pagination.dto';
 import { PokemonCard } from '../entity/pokemonCard.entity';
@@ -27,4 +27,14 @@ export class PokemonCardQueryDto extends RequestPaginationDto {
 export class PokemonCardPaginationDto extends PaginationDto<PokemonCard> {
   @ApiProperty({ type: PokemonCard, isArray: true })
   data: PokemonCard[];
+}
+
+export class BattleDto {
+  @IsNotEmpty()
+  @IsUUID()
+  attackerId: string;
+
+  @IsNotEmpty()
+  @IsUUID()
+  defenderId: string;
 }

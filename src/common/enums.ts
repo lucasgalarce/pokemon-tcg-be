@@ -1,12 +1,28 @@
 export enum PokemonType {
-  WATER = 'WATER',
-  FIRE = 'FIRE',
-  GRASS = 'GRASS',
+  COLORLESS = 'Colorless',
+  DARKNESS = 'Darkness',
+  DRAGON = 'Dragon',
+  FAIRY = 'Fairy',
+  FIGHTING = 'Fighting',
+  FIRE = 'Fire',
+  GRASS = 'Grass',
+  LIGHTNING = 'Lightning',
+  METAL = 'Metal',
+  PSYCHIC = 'Psychic',
+  WATER = 'Water',
 }
 
 export enum PokemonExpansion {
-  BASE_SET = 'BASE_SET',
-  JUNGLE = 'JUNGLE',
+  BASE = 'Base',
+  JUNGLE = 'Jungle',
+  WIZARDS_BLACK_STAR_PROMOS = 'Wizards Black Star Promos',
+  FOSSIL = 'Fossil',
+  BASE_SET_2 = 'Base Set 2',
+  TEAM_ROCKET = 'Team Rocket',
+  GYM_HEROES = 'Gym Heroes',
+  GYM_CHALLENGE = 'Gym Challenge',
+  NEO_GENESIS = 'Neo Genesis',
+  NEO_DISCOVERY = 'Neo Discovery',
 }
 
 export enum PokemonRarity {
