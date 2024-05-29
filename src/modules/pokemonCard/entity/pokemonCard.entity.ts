@@ -11,7 +11,7 @@ import { Column, Entity, ManyToOne } from 'typeorm';
 
 import { EntityBase } from '../../../utils/entity/entity-base';
 import { User } from '../../user/entity/user.entity';
-import { PokemonType, PokemonExpansion, PokemonRarity } from 'src/common/enums';
+import { PokemonType, PokemonExpansion, PokemonRarity } from 'src/utils/enum/pokemon-card-enums';
 
 @Entity()
 export class PokemonCard extends EntityBase {

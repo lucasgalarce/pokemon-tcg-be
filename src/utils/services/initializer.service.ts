@@ -1,12 +1,17 @@
-import { Injectable, OnModuleInit, Inject } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 
 import { UserService } from '../../modules/user/service/user.service';
 import { UserDto } from '../../modules/user/dto/user.dto';
 import { Role } from '../enum/role.enum';
+import { pokemonCards } from 'src/common/initialPokemonCardsData';
+import { PokemonCardService } from '../../modules/pokemonCard/service/pokemonCard.service';
 
 @Injectable()
 export class Initializer implements OnModuleInit {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly pokemonCardService: PokemonCardService,
+  ) {}
 
   async onModuleInit() {
     await this.initialConfig();
@@ -25,7 +30,13 @@ export class Initializer implements OnModuleInit {
         enabled: true,
       };
 
-      await this.userService.create(firstAdmin);
+      const createdAdmin = await this.userService.create(firstAdmin);
+
+      const pokemonCardPromises = pokemonCards.map((card) => {
+        return this.pokemonCardService.create({ ...card, user: createdAdmin });
+      });
+
+      await Promise.all(pokemonCardPromises);
     }
   }
 }

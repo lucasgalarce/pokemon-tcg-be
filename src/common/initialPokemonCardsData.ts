@@ -1,5 +1,5 @@
 import { PokemonCard } from 'src/modules/pokemonCard/entity/pokemonCard.entity';
-import { PokemonExpansion, PokemonRarity, PokemonType } from './enums';
+import { PokemonExpansion, PokemonRarity, PokemonType } from '../utils/enum/pokemon-card-enums';
 
 export const pokemonCards: Omit<PokemonCard, 'user'>[] = [
   {
