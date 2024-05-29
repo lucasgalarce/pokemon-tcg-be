@@ -9,6 +9,7 @@ import * as swaggerStats from 'swagger-stats';
 import { json } from 'express';
 
 import { AppModule } from './app.module';
+import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -20,7 +21,7 @@ async function bootstrap() {
   const port = parseInt(server.port, 10) || 8080;
 
   app.setGlobalPrefix(`${server.context}`);
-
+  app.useGlobalFilters(new AllExceptionsFilter());
   app.use([cookieParser(), helmet(), compression(), json()]);
 
   app.useGlobalPipes(

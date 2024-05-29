@@ -19,7 +19,7 @@ import { JwtAuthGuard } from 'src/modules/auth/guard/jwt.guard';
 import { RolesGuard } from 'src/modules/auth/guard/role.guard';
 import { CurrentUser } from 'src/decorators/currentUser.decorator';
 import { User } from 'src/modules/user/entity/user.entity';
-@Controller('pokemonCards')
+@Controller('pokemon-cards')
 @ApiTags('PokemonCards')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class PokemonCardController {
@@ -47,7 +47,7 @@ export class PokemonCardController {
   @ApiBody({ type: PokemonCardDto, required: true })
   @ApiCreatedResponse({ description: 'PokemonCard created' })
   async save(@Body() entity: PokemonCardDto, @CurrentUser() user: User) {
-    return this.pokemonCardService().createPokemonCard(entity, user.id);
+    return this.pokemonCardService().createPokemonCard(entity, user);
   }
 
   @Delete('/:id')
