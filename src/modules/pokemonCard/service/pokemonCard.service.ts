@@ -10,12 +10,7 @@ import { PokemonCardError } from '../enum/pokemon-card-error.enum';
 import { UtilsService } from '../../../utils/services/utils.service';
 import { PokemonCard } from '../entity/pokemonCard.entity';
 import { PokemonCardRepository } from '../repository/pokemonCard.repository';
-import {
-  BattleDto,
-  PokemonCardDto,
-  PokemonCardQueryDto,
-  UpdatePokemonCardDto,
-} from '../dtos/pokemonCard.dto';
+import { PokemonCardDto, PokemonCardQueryDto, UpdatePokemonCardDto } from '../dtos/pokemonCard.dto';
 import { UserService } from '../../user/service/user.service';
 import { User } from 'src/modules/user/entity/user.entity';
 import { QueryFailedError } from 'typeorm';

@@ -14,27 +14,13 @@ export class PokemonCardDto extends OmitType(PokemonCard, [
 export class UpdatePokemonCardDto extends PartialType(PokemonCardDto) {}
 
 export class PokemonCardQueryDto extends RequestPaginationDto {
-  @ApiProperty({ description: 'Title filter', required: false })
+  @ApiProperty({ description: 'Name filter', required: false })
   @IsString()
   @IsOptional()
-  title: string;
-
-  @ApiProperty({ description: 'User id', required: true })
-  @IsString()
-  user: string;
+  name: string;
 }
 
 export class PokemonCardPaginationDto extends PaginationDto<PokemonCard> {
   @ApiProperty({ type: PokemonCard, isArray: true })
   data: PokemonCard[];
-}
-
-export class BattleDto {
-  @IsNotEmpty()
-  @IsUUID()
-  attackerId: string;
-
-  @IsNotEmpty()
-  @IsUUID()
-  defenderId: string;
 }

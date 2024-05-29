@@ -13,7 +13,7 @@ export class PokemonCardRepository extends Repository<PokemonCard> {
   }
 
   async findPokemonCardsByFiltersPaginated(payload: PokemonCardQueryDto) {
-    const { page, pageSize, title } = payload;
+    const { page, pageSize, name } = payload;
 
     const pageNumber = page ?? 0;
     const take = pageSize ?? 10;
@@ -21,14 +21,14 @@ export class PokemonCardRepository extends Repository<PokemonCard> {
 
     const query = this.createQueryBuilder('pokemonCard');
 
-    if (title) {
+    if (name) {
       query.andWhere(
         new Brackets((qb) => {
-          qb.where('UPPER(pokemonCard.title) LIKE UPPER(:title)', { title: `%${title}%` });
+          qb.where('UPPER(pokemonCard.name) LIKE UPPER(:name)', { name: `%${name}%` });
         }),
       );
     }
-    query.orderBy('pokemonCard.title', 'ASC');
+    query.orderBy('pokemonCard.name', 'ASC');
 
     const [data, total] = await query.take(take).skip(skip).getManyAndCount();
 

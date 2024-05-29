@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { PokemonCardService } from '../service/pokemonCard.service';
 import {
   ApiOkResponse,
@@ -11,9 +11,9 @@ import {
 import { PokemonCard } from '../entity/pokemonCard.entity';
 import { IdParams } from '../../../utils/dtos/Commons.dto';
 import {
-  BattleDto,
   PokemonCardDto,
   PokemonCardPaginationDto,
+  PokemonCardQueryDto,
   UpdatePokemonCardDto,
 } from '../dtos/pokemonCard.dto';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt.guard';
@@ -32,8 +32,8 @@ export class PokemonCardController {
 
   @Get('/')
   @ApiOkResponse({ type: PokemonCardPaginationDto })
-  async findAll() {
-    const pokemonCards = await this.pokemonCardService().findAll();
+  async findAll(@Query() queryDto: PokemonCardQueryDto) {
+    const pokemonCards = await this.pokemonCardService().findWithFiltersAndPagination(queryDto);
     return pokemonCards;
   }
 
