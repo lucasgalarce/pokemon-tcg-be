@@ -9,6 +9,7 @@ import { UtilsModule } from './utils/utils.module';
 import { UserModule } from './modules/user/user.module';
 import { PokemonCardModule } from './modules/pokemonCard/pokemonCard.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { BattleModule } from './modules/battle/battle.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AuthModule } from './modules/auth/auth.module';
     UtilsModule,
     UserModule,
     PokemonCardModule,
+    BattleModule,
     AuthModule,
   ],
   controllers: [AppController],

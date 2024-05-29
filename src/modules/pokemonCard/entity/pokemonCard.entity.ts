@@ -1,12 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsEnum,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-  MaxLength,
-} from '@nestjs/class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsString, MaxLength } from '@nestjs/class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
 
 import { EntityBase } from '../../../utils/entity/entity-base';

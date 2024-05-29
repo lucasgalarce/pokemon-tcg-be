@@ -46,6 +46,38 @@ export class PokemonCardService extends UtilsService<PokemonCard> {
     }
   }
 
+  async findById(id: string) {
+    const pokemonCard = await this.findOneByFilter({
+      where: [{ id }],
+    });
+
+    if (!pokemonCard) {
+      throw new NotFoundException('PokemonCard not found');
+    }
+
+    const weaknessCards = pokemonCard.weakness
+      ? await this.getRepository().find({
+          where: {
+            type: pokemonCard.weakness,
+          },
+        })
+      : [];
+
+    const resistanceCards = pokemonCard.resistance
+      ? await this.getRepository().find({
+          where: {
+            type: pokemonCard.resistance,
+          },
+        })
+      : [];
+
+    return {
+      ...pokemonCard,
+      weaknessCards,
+      resistanceCards,
+    };
+  }
+
   async update(id: string, pokemonCardDto: UpdatePokemonCardDto, userId: string) {
     if (!!pokemonCardDto.name) {
       const pokemonCardDb = await this.findOneByFilter({
@@ -75,26 +107,5 @@ export class PokemonCardService extends UtilsService<PokemonCard> {
 
   async findWithFiltersAndPagination(payload: PokemonCardQueryDto) {
     return this.getRepository().findPokemonCardsByFiltersPaginated(payload);
-  }
-
-  async battle(battleDto: BattleDto): Promise<string> {
-    const attacker = await this.findOneByFilter({
-      where: [{ id: battleDto.attackerId }],
-    });
-    const defender = await this.findOneByFilter({
-      where: [{ id: battleDto.defenderId }],
-    });
-
-    if (!attacker || !defender) {
-      throw new NotFoundException('One of the Pokemon cards not found');
-    }
-
-    const damageMultiplier = defender.weakness === attacker.type ? 2 : 1;
-
-    if (attacker.hp * damageMultiplier > defender.hp) {
-      return `${attacker.name} wins the battle`;
-    } else {
-      return `${defender.name} wins the battle`;
-    }
   }
 }

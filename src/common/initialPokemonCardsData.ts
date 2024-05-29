@@ -8,7 +8,7 @@ export const pokemonCards: Omit<PokemonCard, 'user'>[] = [
     type: PokemonType.LIGHTNING,
     expansion: PokemonExpansion.BASE,
     rarity: PokemonRarity.COMMON,
-    originalAttackDmg: 160,
+    originalAttackDmg: 20,
     weakness: PokemonType.FIGHTING,
     resistance: PokemonType.METAL,
   },

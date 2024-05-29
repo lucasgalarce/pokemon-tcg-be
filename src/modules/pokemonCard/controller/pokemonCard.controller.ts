@@ -41,7 +41,7 @@ export class PokemonCardController {
   @ApiOkResponse({ type: PokemonCard, description: 'PokemonCard detail' })
   @ApiNotFoundResponse({ description: 'PokemonCard not found' })
   findOne(@Param() params: IdParams) {
-    return this.pokemonCardService().findByIdOrFail(params.id);
+    return this.pokemonCardService().findById(params.id);
   }
 
   @Post('/')
@@ -67,10 +67,5 @@ export class PokemonCardController {
     @CurrentUser() user: User,
   ) {
     await this.pokemonCardService().update(params.id, entity, user.id);
-  }
-
-  @Post('battle')
-  async battle(@Body() battleDto: BattleDto): Promise<string> {
-    return this.pokemonCardService().battle(battleDto);
   }
 }
