@@ -14,17 +14,20 @@ import {
   ApiOkResponse,
   ApiTags,
   ApiUnauthorizedResponse,
+  ApiCreatedResponse,
 } from '@nestjs/swagger';
 
 import { AuthService } from '../service/auth.service';
 import { RequestWithUser } from '../types/request.user.type';
 import { AuthDto, SessionDto } from '../dto/auth.dto';
 import { JwtAuthGuard } from '../guard/jwt.guard';
+import { UserDto } from 'src/modules/user/dto/user.dto';
+import { UserService } from 'src/modules/user/service/user.service';
 
 @Controller('auth')
 @ApiTags('Auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private readonly userService: UserService) {}
 
   @Post('login')
   @ApiBody({ type: AuthDto })
@@ -34,6 +37,14 @@ export class AuthController {
   async login(@Body() body: AuthDto) {
     const { username, password } = body;
     return this.authService.login(username, password);
+  }
+
+  @Post('/sign-up')
+  @ApiBody({ type: UserDto, required: true })
+  @ApiCreatedResponse({ type: UserDto, description: 'User created' })
+  async signup(@Body() entity: UserDto): Promise<string> {
+    await this.userService.create(entity);
+    return 'User created';
   }
 
   @UseGuards(JwtAuthGuard)

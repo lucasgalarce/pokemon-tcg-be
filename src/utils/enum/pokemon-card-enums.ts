@@ -15,7 +15,6 @@ export enum PokemonType {
 export enum PokemonExpansion {
   BASE = 'Base',
   JUNGLE = 'Jungle',
-  WIZARDS_BLACK_STAR_PROMOS = 'Wizards Black Star Promos',
   FOSSIL = 'Fossil',
   BASE_SET_2 = 'Base Set 2',
   TEAM_ROCKET = 'Team Rocket',

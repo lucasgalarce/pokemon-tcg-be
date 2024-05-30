@@ -4,22 +4,15 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
-import {
-  AfterLoad,
-  BeforeInsert,
-  BeforeUpdate,
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
+import { AfterLoad, BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude } from 'class-transformer';
 
 import { PokemonCard } from 'src/modules/pokemonCard/entity/pokemonCard.entity';
 import { EntityBase } from '../../../utils/entity/entity-base';
@@ -77,10 +70,10 @@ export class User extends EntityBase {
     description: 'Role of User',
     required: false,
   })
-  @Column({ type: 'simple-enum', enum: Role })
+  @Column({ type: 'simple-enum', enum: Role, default: Role.USER })
   @IsEnum(Role)
-  @IsNotEmpty()
-  role: Role;
+  @IsOptional()
+  role?: Role;
 
   @ApiProperty({
     description: 'Enabled status of of User',
