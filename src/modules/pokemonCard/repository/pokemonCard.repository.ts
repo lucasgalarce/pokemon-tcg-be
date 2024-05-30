@@ -16,7 +16,7 @@ export class PokemonCardRepository extends Repository<PokemonCard> {
     const { page, pageSize, name } = payload;
 
     const pageNumber = page ?? 0;
-    const take = pageSize ?? 10;
+    const take = pageSize ?? 8;
     const skip = Math.max(0, pageNumber) * take;
 
     const query = this.createQueryBuilder('pokemonCard');
