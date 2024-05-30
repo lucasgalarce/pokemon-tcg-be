@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsNumber, IsString, MaxLength } from '@nestjs/class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  MaxLength,
+  IsOptional,
+} from '@nestjs/class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
 
 import { EntityBase } from '../../../utils/entity/entity-base';
@@ -53,9 +60,14 @@ export class PokemonCard extends EntityBase {
 
   @ApiProperty({ description: 'resistance', enum: PokemonType })
   @Column({ type: 'enum', enum: PokemonType, nullable: true })
-  @IsNotEmpty()
+  @IsOptional()
   @IsEnum(PokemonType)
   resistance?: PokemonType;
+
+  @Column({ nullable: true })
+  @IsString()
+  @IsOptional()
+  imageUrl?: string;
 
   @ManyToOne(() => User, (user: User) => user.pokemonCards)
   user: User;

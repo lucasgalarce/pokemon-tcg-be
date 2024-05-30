@@ -2,7 +2,7 @@ import { Controller, Post, Body, HttpException, HttpStatus } from '@nestjs/commo
 import { ApiBody, ApiTags, ApiCreatedResponse, ApiBadRequestResponse } from '@nestjs/swagger';
 
 import { BattleService } from '../service/battle.service';
-import { BattleDto } from '../dtos/battle.dto';
+import { BattleDto, BattleResponseDto } from '../dtos/battle.dto';
 
 @ApiTags('Battle')
 @Controller('battle')
@@ -13,7 +13,7 @@ export class BattleController {
   @ApiBody({ type: BattleDto })
   @ApiCreatedResponse({ description: 'Battle result' })
   @ApiBadRequestResponse({ description: 'Invalid request' })
-  async battle(@Body() battleDto: BattleDto): Promise<string> {
+  async battle(@Body() battleDto: BattleDto): Promise<BattleResponseDto> {
     try {
       const result = await this.battleService.battle(battleDto);
       return result;

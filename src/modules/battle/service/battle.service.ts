@@ -20,7 +20,7 @@ export class BattleService extends UtilsService<Battle> {
     return this.battleRepository;
   }
 
-  async battle(battleDto: BattleDto): Promise<string> {
+  async battle(battleDto: BattleDto) {
     const attacker = await this.pokemonCardService.findOneByFilter({
       where: [{ id: battleDto.attackerId }],
     });
@@ -48,6 +48,6 @@ export class BattleService extends UtilsService<Battle> {
 
     const message = succeed ? `${attacker.name} wins!` : `${defender.name} wins!`;
 
-    return message;
+    return { message };
   }
 }

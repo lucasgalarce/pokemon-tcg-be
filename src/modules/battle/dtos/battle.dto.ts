@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class BattleDto {
   @IsNotEmpty()
@@ -8,4 +8,10 @@ export class BattleDto {
   @IsNotEmpty()
   @IsUUID()
   defenderId: string;
+}
+
+export class BattleResponseDto {
+  @IsNotEmpty()
+  @IsString()
+  message: string;
 }
