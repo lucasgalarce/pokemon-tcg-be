@@ -13,7 +13,7 @@ export class PokemonCardRepository extends Repository<PokemonCard> {
   }
 
   async findPokemonCardsByFiltersPaginated(payload: PokemonCardQueryDto) {
-    const { page, pageSize, name } = payload;
+    const { page, pageSize, name, type, expansion } = payload;
 
     const pageNumber = page ?? 0;
     const take = pageSize ?? 8;
@@ -28,6 +28,15 @@ export class PokemonCardRepository extends Repository<PokemonCard> {
         }),
       );
     }
+
+    if (type) {
+      query.andWhere('pokemonCard.type = :type', { type });
+    }
+
+    if (expansion) {
+      query.andWhere('pokemonCard.expansion = :expansion', { expansion });
+    }
+
     query.orderBy('pokemonCard.name', 'ASC');
 
     const [data, total] = await query.take(take).skip(skip).getManyAndCount();
