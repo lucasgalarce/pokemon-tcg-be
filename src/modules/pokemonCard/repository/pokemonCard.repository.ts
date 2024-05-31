@@ -12,7 +12,7 @@ export class PokemonCardRepository extends Repository<PokemonCard> {
     super(_.target, _.manager, _.queryRunner);
   }
 
-  async findPokemonCardsByFiltersPaginated(payload: PokemonCardQueryDto) {
+  async findPokemonCardsByFiltersPaginated(payload: PokemonCardQueryDto, userId: string) {
     const { page, pageSize, name, type, expansion } = payload;
 
     const pageNumber = page ?? 0;
@@ -20,6 +20,7 @@ export class PokemonCardRepository extends Repository<PokemonCard> {
     const skip = Math.max(0, pageNumber) * take;
 
     const query = this.createQueryBuilder('pokemonCard');
+    query.andWhere('pokemonCard.userId = :userId', { userId });
 
     if (name) {
       query.andWhere(

@@ -43,8 +43,11 @@ export class PokemonCardController {
 
   @Get('/')
   @ApiOkResponse({ type: PokemonCardPaginationDto })
-  async findAll(@Query() queryDto: PokemonCardQueryDto) {
-    const pokemonCards = await this.pokemonCardService().findWithFiltersAndPagination(queryDto);
+  async findAll(@Query() queryDto: PokemonCardQueryDto, @CurrentUser() user: User) {
+    const pokemonCards = await this.pokemonCardService().findWithFiltersAndPagination(
+      queryDto,
+      user.id,
+    );
     return pokemonCards;
   }
 

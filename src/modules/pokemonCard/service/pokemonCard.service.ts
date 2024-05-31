@@ -100,7 +100,7 @@ export class PokemonCardService extends UtilsService<PokemonCard> {
     return this.getRepository().softDelete(id);
   }
 
-  async findWithFiltersAndPagination(payload: PokemonCardQueryDto) {
-    return this.getRepository().findPokemonCardsByFiltersPaginated(payload);
+  async findWithFiltersAndPagination(payload: PokemonCardQueryDto, userId: string) {
+    return this.getRepository().findPokemonCardsByFiltersPaginated(payload, userId);
   }
 }
