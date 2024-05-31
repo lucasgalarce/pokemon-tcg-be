@@ -59,7 +59,7 @@ export class User extends EntityBase {
   @Column()
   @IsString()
   @IsNotEmpty()
-  @MinLength(8)
+  @MinLength(5)
   @MaxLength(20)
   // @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
   //   message: 'password too weak',
