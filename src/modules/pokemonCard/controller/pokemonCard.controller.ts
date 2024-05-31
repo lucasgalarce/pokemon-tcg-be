@@ -65,6 +65,10 @@ export class PokemonCardController {
     if (file) {
       const imageUrl = await this.s3Service.uploadFile(file);
       createPokemonDto.imageUrl = imageUrl;
+    } else {
+      const defaultImage =
+        'https://pokemon-cards-lucas.s3.us-east-1.amazonaws.com/cbf16e85-06d5-46d4-88af-950ba9a25336-whois.png';
+      createPokemonDto.imageUrl = defaultImage;
     }
     return this.pokemonCardService().createPokemonCard(createPokemonDto, user);
   }
