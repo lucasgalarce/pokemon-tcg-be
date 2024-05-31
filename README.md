@@ -49,6 +49,16 @@ The application is deployed at: https://pokemon-tcg-be-production.up.railway.app
 
 Swagger documentation for the deployed application: https://pokemon-tcg-be-production.up.railway.app/api/docs
 
-## Explaination
+## This RESTful API allows you to:
 
-The application includes user registration and authentication. Each user can add custom Pokémon cards and view them on their card dashboard. Users have the option to upload an image for each card; if no image is uploaded, a default image will be assigned. Uploaded images are stored using AWS S3. By clicking on a Pokémon card, users can initiate a battle against another Pokémon card. The winner is determined based on whether the attacking Pokémon can defeat the defending Pokémon in a single attack, considering weaknesses and resistances for calculation. Battle data is persisted for future use. Types and sets are fetched from an external Pokémon TCG API.
+- Create a new card
+- Update an existing card
+  Retrieve a specific card (including its weaknesses and resistances)
+- Retrieve all cards
+- Delete a card
+- Simulate a battle
+- Store images using AWS S3. If no image is selected when creating a card, a default image will be assigned.
+- User authentication
+- Apply filters
+- Pagination
+- Deployed on Railway
